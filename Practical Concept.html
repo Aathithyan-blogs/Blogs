@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Novel November</title>
+    <style>
+        /* Font Face - Place your font file in the same folder as this HTML or in a 'fonts' subfolder */
+        @font-face {
+            font-family: 'Zoho Puvi';
+            src: url('fonts/ZohoPuvi-Regular.otf') format('opentype');
+            font-weight: 400;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        @font-face {
+            font-family: 'Zoho Puvi';
+            src: url('fonts/ZohoPuvi-Bold.otf') format('opentype');
+            font-weight: 700;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        @font-face {
+            font-family: 'Zoho Puvi';
+            src: url('fonts/ZohoPuvi-Italic.otf') format('opentype');
+            font-weight: 400;
+            font-style: italic;
+            font-display: swap;
+        }
+
+        /* Add more @font-face rules for other variants as needed */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Zoho Puvi', 'Segoe UI', Arial, sans-serif;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .container {
+            display: flex;
+            height: 100vh;
+        }
+
+        /* Left Sidebar - Fixed */
+        .sidebar {
+            width: 320px;
+            background-color: #FAFAFA;
+            border-right: 1px solid #ddd;
+            overflow-y: auto;
+            flex-shrink: 0;
+        }
+
+        .sidebar-header {
+            background: #E42527;
+            padding: 30px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .novel-box {
+            background: white;
+            padding: 20px 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .novel-box h1 {
+            font-size: 28px;
+            font-weight: bold;
+            text-align: center;
+            color: #000000;
+            letter-spacing: 1px;
+        }
+
+        .sidebar-content {
+            padding: 30px;
+        }
+
+        .sidebar-section {
+            margin-bottom: 30px;
+        }
+
+        .sidebar-section h3 {
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .search-box {
+            display: flex;
+            margin-bottom: 10px;
+        }
+
+        .search-box input {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ccc;
+            font-size: 14px;
+            font-family: 'Zoho Puvi', Arial, sans-serif;
+        }
+
+        .search-box button {
+            padding: 10px 20px;
+            background: #000;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-family: 'Zoho Puvi', Arial, sans-serif;
+        }
+
+        .email-box {
+            display: flex;
+            margin-bottom: 10px;
+        }
+
+        .email-box input {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ccc;
+            font-size: 14px;
+            font-family: 'Zoho Puvi', Arial, sans-serif;
+        }
+
+        .email-box button {
+            padding: 10px 20px;
+            background: #E42527;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+            font-family: 'Zoho Puvi', Arial, sans-serif;
+        }
+
+        .sidebar-section a {
+            display: block;
+            color: #333;
+            text-decoration: none;
+            padding: 5px 0;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        .sidebar-section a:hover {
+            color: #E42527;
+        }
+
+        .sidebar-section a.active {
+            color: #E42527;
+            font-weight: bold;
+        }
+
+        .search-result {
+            background: white;
+            padding: 10px;
+            margin-bottom: 8px;
+            border-radius: 4px;
+            cursor: pointer;
+            border-left: 3px solid #E42527;
+            transition: all 0.2s;
+        }
+
+        .search-result:hover {
+            background: #fff5e6;
+            transform: translateX(3px);
+        }
+
+        .search-result-title {
+            font-weight: bold;
+            color: #333;
+            font-size: 14px;
+        }
+
+        .search-result-preview {
+            font-size: 12px;
+            color: #666;
+            margin-top: 4px;
+            line-height: 1.4;
+        }
+
+        .no-results {
+            padding: 10px;
+            color: #666;
+            font-size: 13px;
+            font-style: italic;
+        }
+
+        .search-highlight {
+            background: #ffeb3b;
+            padding: 2px 4px;
+            border-radius: 2px;
+            color: #333;
+        }
+
+        /* Right Content Area - Scrollable */
+        .content {
+            flex: 1;
+            overflow-y: auto;
+            background: white;
+            scroll-behavior: smooth;
+        }
+
+        .content-inner {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 60px 40px;
+        }
+
+        article {
+            margin-bottom: 60px;
+            scroll-margin-top: 60px;
+        }
+
+        article h2 {
+            font-size: 36px;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+
+        article p {
+            font-size: 18px;
+            line-height: 1.7;
+            color: #333;
+            margin-bottom: 20px;
+            text-align: justify;
+        }
+
+        .post-date {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #666;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #ddd;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-icons a {
+            width: 30px;
+            height: 30px;
+            background: #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 100%;
+                position: absolute;
+                z-index: 10;
+                transform: translateX(-100%);
+                transition: transform 0.3s;
+            }
+
+            .sidebar.active {
+                transform: translateX(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Left Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="novel-box">
+                    <h1>NOVEL NOVEMBER</h1>
+                </div>
+            </div>
+            
+            <div class="sidebar-content">
+                <div class="sidebar-section">
+                    <h3>Search</h3>
+                    <div class="search-box">
+                        <input type="text" id="searchInput" placeholder="Search chapters...">
+                        <button id="searchBtn">Go</button>
+                    </div>
+
+                    <div id="searchResults" style="margin-top: 15px;"></div>
+                </div>
+
+                <div class="sidebar-section">
+                    <h3>Subscribe</h3>
+                    <div class="email-box">
+                        <input type="email" placeholder="me@email.com">
+                        <button>Sign Up</button>
+                    </div>
+                    
+                </div>
+
+                <div class="sidebar-section">
+                    <h3>Chapters</h3>
+                    <a href="#chapter1" class="nav-link">Chapter 1: A New World</a>
+                    <a href="#chapter2" class="nav-link">Chapter 2: Outcomes and Tasks</a>
+                    <a href="#chapter3" class="nav-link">Chapter 3: Innovation</a>
+                    <a href="#chapter4" class="nav-link">Chapter 4: Leadership</a>
+                    <a href="#chapter5" class="nav-link">Chapter 5: Creativity</a>
+                    <a href="#chapter6" class="nav-link">Chapter 6: Marketing</a>
+                    <a href="#chapter7" class="nav-link">Chapter 7: Strategy</a>
+                    <a href="#chapter8" class="nav-link">Chapter 8: Growth</a>
+                    <a href="#chapter9" class="nav-link">Chapter 9: Purpose</a>
+                    <a href="#chapter10" class="nav-link">Chapter 10: Impact</a>
+                </div>
+
+            </div>
+        </aside>
+
+        <!-- Right Content Area -->
+        <main class="content" id="contentArea">
+            <div class="content-inner">
+                <article id="chapter1">
+                    <h2>Chapter 1: A New World</h2>
+                    <p>The air hung thick with the cloying sweetness of cherry blossoms as I stepped off the bullet train, my backpack a heavy weight on my shoulders. Tokyo’s frenetic energy, a stark contrast to the quiet suburb I’d left behind, washed over me in a wave of sensory overload. A cacophony of honking horns, flashing neon signs, and chattering voices assaulted my senses. I instinctively pulled my hoodie tighter, shielding myself from the onslaught.</p>
+<p>The familiar hum of my phone vibrated in my pocket, a reminder of my father’s curt message: “Get settled, I’ll call next week.” The words, devoid of warmth or even a hint of affection, sent a familiar chill down my spine. My father, a man of logic and action, had always struggled to understand my introspective nature.  My emotional vulnerability was met with a dismissive scoff, a reminder of my perceived weakness.</p>
+<p>I walked through the bustling station, navigating the crowds with a practiced ease. I was a master of my digital world, navigating labyrinthine code with the agility of a seasoned explorer. But the real world, with its unpredictable emotions and messy human interactions, felt like a tangled jungle I could never fully decipher.</p>
+<p>My new apartment, a small but functional studio in a quiet neighborhood, offered a sense of refuge from the city's chaos. I unpacked my belongings with a methodical efficiency, the familiar scent of my tech gear offering a calming comfort. I had spent weeks meticulously planning my setup, a sanctuary for my passions.</p>
+<p>My eyes lit up as I laid out my prized possessions: two powerful desktops, a testament to my dedication and skill. The first, a gaming behemoth, boasted a gleaming white chassis adorned with RGB lighting. It was a beast of a machine, packing a punch with its AMD Ryzen 7 7800X3D CPU, 4x16GB of Dominator DDR5 RAM, an Asus ROG Crosshair VIII Dark Hero motherboard, and an ROG Strix LC GeForce RTX 4090 24GB GDDR6X OC Edition GPU. A 4TB SSD and a 4TB HDD provided ample storage for my ever-growing game library.</p>
+<p>The other desktop, a sleek black machine, was my dedicated hacking rig.  This machine was built for speed and efficiency, powered by a top-of-the-line processor and 2x32GB of DDR5 RAM. A 2TB SSD provided lightning-fast access to my essential hacking tools, including the Kali Linux operating system.</p>
+<p>My two laptops, one for programming and the other for remote hacking projects, completed my digital arsenal. This was my digital domain, a place where I could escape the anxieties of the real world and immerse myself in the logical world of code.</p>
+<p>The first task was to connect my desktops and laptops, creating a network that mirrored the intricate web of my own mind. Each device was a unique node, a testament to my dedication and skill. The rhythmic click of keys and the whirring of fans filled the room, a symphony of power and potential.</p>
+<p>With my technological haven established, I turned my attention to my new school, a sprawling complex nestled in the heart of the city.  I spent hours researching my classmates and teachers, meticulously compiling information from online sources. I found their names, ages, hobbies, and even their social media profiles, painstakingly weaving together a digital tapestry of their lives. I was able to gather information on everyone but, frustratingly, couldn't locate a single photo.</p>
+<p>My classmates seemed like an eclectic mix:</p>
+<p><b>Akio:</b> A tall and muscular boy who excelled in athletics and had a passion for football. His profile indicated a budding interest in programming, though he seemed more concerned with physical prowess than intellectual pursuits. Despite my athleticism, I couldn't help but feel a sense of apprehension when it came to engaging with this seemingly intimidating figure.</p>
+<p><b>Muchico:</b>  A plump and jovial boy with a passion for music. His online presence was a symphony of playful banter and music recommendations, painting a picture of a friendly and approachable personality. His social media was filled with photos of him with his friends, a group of girls who seemed to adore his infectious energy. I found myself drawn to Muchico’s warmth, a stark contrast to my own introverted nature. </p>
+<p><b>Suzume:</b>  The girl who instantly caught my attention. Her online presence was minimal, a testament to her penchant for privacy. The few posts she made offered glimpses into her creative spirit, a mix of artistic endeavors and philosophical musings. I was intrigued by her quiet confidence and elusive nature. </p>
+<p>I felt a peculiar mix of curiosity and anxiety as I scrolled through Suzume’s limited online presence.  The thought of seeing her in person sent a tremor of anticipation through me, a feeling I hadn't experienced in years.  </p>
+<p>The next morning, I found myself standing outside the school gates, a wave of unfamiliar nervousness washing over me. I took a deep breath, my eyes scanning the crowd for any sign of my classmates. It was my first day at my seventh high school, each previous school a fleeting stop along my father's nomadic career path. I wasn't used to stability, to forming connections, and the thought of starting anew sent a tremor through me.</p>
+<p>Suddenly, a wave of warmth washed over me. A girl, her hair tied back in a ponytail, her eyes sparkling with a youthful vibrancy, stood before me. </p>
+<p>“You’re Arima, right?” She smiled, extending a hand. “I’m Suzume. Nice to meet you.”</p>
+<p>My heart stuttered. My hand felt clammy as I took hers, my voice betraying my nervousness. “Nice to meet you too, Suzume.”</p>
+<p>“Everyone knows about your amazing hacking skills, you know,” she said, a playful twinkle in her eye. “Even the teachers are a little intimidated.” </p>
+<p>I blushed, feeling a wave of self-consciousness. I hadn’t thought about how my online reputation might precede me, especially with my new classmates.  </p>
+<p>“Yeah, well,” I mumbled, trying to deflect her attention, “it’s just a hobby.”</p>
+<p>Suzume laughed, a melodic sound that sent a shiver down my spine. “Don’t be so modest, Arima. Everyone’s excited to have the school’s resident hacker join their ranks.”</p>
+<p>In that moment, the weight of my anxieties seemed to lift, replaced by a flicker of hope. This was my new beginning, and I was ready to face it, Suzume by my side.</p> 
+</p>
+                    <div class="post-date">OCTOBER 23, 2025</div>
+                </article>
+
+                <article id="chapter2">
+                    <h2>Chapter 2: Outcomes and Tasks</h2>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                    <div class="post-date">OCTOBER 23, 2025</div>
+                </article>
+
+                <article id="chapter3">
+                    <h2>Chapter 3: Innovation</h2>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                    <div class="post-date">OCTOBER 23, 2025</div>
+                </article>
+
+                <article id="chapter4">
+                    <h2>Chapter 4: Leadership</h2>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                    <div class="post-date">OCTOBER 23, 2025</div>
+                </article>
+
+                <article id="chapter5">
+                    <h2>Chapter 5: Creativity</h2>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                    <div class="post-date">OCTOBER 23, 2025</div>
+                </article>
+
+                <article id="chapter6">
+                    <h2>Chapter 6: Marketing</h2>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                    <div class="post-date">OCTOBER 23, 2025</div>
+                </article>
+
+                <article id="chapter7">
+                    <h2>Chapter 7: Strategy</h2>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                    <div class="post-date">OCTOBER 23, 2025</div>
+                </article>
+
+                <article id="chapter8">
+                    <h2>Chapter 8: Growth</h2>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                    <div class="post-date">OCTOBER 23, 2025</div>
+                </article>
+
+                <article id="chapter9">
+                    <h2>Chapter 9: Purpose</h2>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                    <div class="post-date">OCTOBER 23, 2025</div>
+                </article>
+
+                <article id="chapter10">
+                    <h2>Chapter 10: Impact</h2>
+                    <p>ILorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                    <div class="post-date">OCTOBER 23, 2025</div>
+                </article>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Chapter data for searching
+        const chapters = [
+            { id: 'chapter1', number: 1, title: 'A New World', preview: 'If there was a website you could visit to find out what A New World held...' },
+            { id: 'chapter2', number: 2, title: 'Outcomes and Tasks', preview: "It's difficult to spend the entire day working on outcomes..." },
+            { id: 'chapter3', number: 3, title: 'Innovation', preview: "Innovation isn't about having the newest technology..." },
+            { id: 'chapter4', number: 4, title: 'Leadership', preview: 'Leadership is not about authority or position...' },
+            { id: 'chapter5', number: 5, title: 'Creativity', preview: "Creativity isn't a talent that some people have..." },
+            { id: 'chapter6', number: 6, title: 'Marketing', preview: 'Marketing is not about interrupting people with ads...' },
+            { id: 'chapter7', number: 7, title: 'Strategy', preview: 'Strategy is about making choices...' },
+            { id: 'chapter8', number: 8, title: 'Growth', preview: "Growth isn't just about getting bigger..." },
+            { id: 'chapter9', number: 9, title: 'Purpose', preview: 'Purpose is what drives us forward when things get difficult...' },
+            { id: 'chapter10', number: 10, title: 'Impact', preview: 'Impact is measured not by how much we do...' }
+        ];
+
+        // Get all navigation links and the content area
+        const navLinks = document.querySelectorAll('.nav-link');
+        const contentArea = document.getElementById('contentArea');
+        const searchInput = document.getElementById('searchInput');
+        const searchBtn = document.getElementById('searchBtn');
+        const searchResults = document.getElementById('searchResults');
+
+        // Search functionality
+        function performSearch(query) {
+            if (!query.trim()) {
+                searchResults.innerHTML = '';
+                return;
+            }
+
+            const lowerQuery = query.toLowerCase();
+            const results = chapters.filter(chapter => {
+                // Search by chapter number (e.g., "Chapter 5", "5", "ch 5")
+                const numberMatch = chapter.number.toString() === lowerQuery ||
+                                  `chapter ${chapter.number}` === lowerQuery ||
+                                  `ch ${chapter.number}` === lowerQuery;
+                
+                // Search by title (e.g., "Strategy", "Future")
+                const titleMatch = chapter.title.toLowerCase().includes(lowerQuery);
+                
+                return numberMatch || titleMatch;
+            });
+
+            if (results.length === 0) {
+                searchResults.innerHTML = '<div class="no-results">No chapters found</div>';
+                return;
+            }
+
+            searchResults.innerHTML = results.map(chapter => {
+                const titleWithHighlight = highlightMatch(chapter.title, query);
+                return `
+                    <div class="search-result" data-chapter="${chapter.id}">
+                        <div class="search-result-title">Chapter ${chapter.number}: ${titleWithHighlight}</div>
+                        <div class="search-result-preview">${chapter.preview}</div>
+                    </div>
+                `;
+            }).join('');
+
+            // Add click listeners to search results
+            document.querySelectorAll('.search-result').forEach(result => {
+                result.addEventListener('click', function() {
+                    const chapterId = this.getAttribute('data-chapter');
+                    scrollToChapter(chapterId);
+                    searchInput.value = '';
+                    searchResults.innerHTML = '';
+                });
+            });
+        }
+
+        function highlightMatch(text, query) {
+            if (!query.trim()) return text;
+            const regex = new RegExp(`(${query})`, 'gi');
+            return text.replace(regex, '<span class="search-highlight">$1</span>');
+        }
+
+        function scrollToChapter(chapterId) {
+            const targetElement = document.getElementById(chapterId);
+            if (targetElement) {
+                const targetPosition = targetElement.offsetTop - 60;
+                contentArea.scrollTo({
+                    top: targetPosition,
+                    behavior: 'smooth'
+                });
+
+                // Update active link
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href') === `#${chapterId}`) {
+                        link.classList.add('active');
+                    }
+                });
+            }
+        }
+
+        // Search button click
+        searchBtn.addEventListener('click', function() {
+            performSearch(searchInput.value);
+        });
+
+        // Search on Enter key
+        searchInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                performSearch(searchInput.value);
+            }
+        });
+
+        // Real-time search as user types
+        searchInput.addEventListener('input', function() {
+            performSearch(this.value);
+        });
+
+        // Add click event listener to each nav link
+        navLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Remove active class from all links
+                navLinks.forEach(l => l.classList.remove('active'));
+                
+                // Add active class to clicked link
+                this.classList.add('active');
+                
+                // Get the target chapter ID
+                const targetId = this.getAttribute('href').substring(1);
+                scrollToChapter(targetId);
+            });
+        });
+
+        // Optional: Highlight active section while scrolling
+        contentArea.addEventListener('scroll', function() {
+            const articles = document.querySelectorAll('article');
+            const scrollPosition = contentArea.scrollTop + 100;
+
+            articles.forEach(article => {
+                const articleTop = article.offsetTop;
+                const articleBottom = articleTop + article.offsetHeight;
+
+                if (scrollPosition >= articleTop && scrollPosition < articleBottom) {
+                    const articleId = article.getAttribute('id');
+                    navLinks.forEach(link => {
+                        link.classList.remove('active');
+                        if (link.getAttribute('href') === `#${articleId}`) {
+                            link.classList.add('active');
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

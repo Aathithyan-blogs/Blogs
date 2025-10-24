@@ -1,0 +1,271 @@
+<style>
+/* Font Face - Place your font file in the same folder as this HTML or in a 'fonts' subfolder */
+        @font-face {
+            font-family: 'Zoho Puvi';
+            src: url('fonts/ZohoPuvi-Regular.otf') format('opentype');
+            font-weight: 400;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        @font-face {
+            font-family: 'Zoho Puvi';
+            src: url('fonts/ZohoPuvi-Bold.otf') format('opentype');
+            font-weight: 700;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        @font-face {
+            font-family: 'Zoho Puvi';
+            src: url('fonts/ZohoPuvi-Italic.otf') format('opentype');
+            font-weight: 400;
+            font-style: italic;
+            font-display: swap;
+        }
+
+        /* Add more @font-face rules for other variants as needed */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Zoho Puvi', 'Segoe UI', Arial, sans-serif;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .container {
+            display: flex;
+            height: 100vh;
+        }
+
+        /* Left Sidebar - Fixed */
+        .sidebar {
+            width: 320px;
+            background-color: #FAFAFA;
+            border-right: 1px solid #ddd;
+            overflow-y: auto;
+            flex-shrink: 0;
+        }
+
+        .sidebar-header {
+            background: #E42527;
+            padding: 30px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .novel-box {
+            background: white;
+            padding: 20px 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .novel-box h1 {
+            font-size: 28px;
+            font-weight: bold;
+            text-align: center;
+            color: #000000;
+            letter-spacing: 1px;
+        }
+
+        .sidebar-content {
+            padding: 30px;
+        }
+
+        .sidebar-section {
+            margin-bottom: 30px;
+        }
+
+        .sidebar-section h3 {
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .search-box {
+            display: flex;
+            margin-bottom: 10px;
+        }
+
+        .search-box input {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ccc;
+            font-size: 14px;
+            font-family: 'Zoho Puvi', Arial, sans-serif;
+        }
+
+        .search-box button {
+            padding: 10px 20px;
+            background: #000;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-family: 'Zoho Puvi', Arial, sans-serif;
+        }
+
+        .email-box {
+            display: flex;
+            margin-bottom: 10px;
+        }
+
+        .email-box input {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ccc;
+            font-size: 14px;
+            font-family: 'Zoho Puvi', Arial, sans-serif;
+        }
+
+        .email-box button {
+            padding: 10px 20px;
+            background: #E42527;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+            font-family: 'Zoho Puvi', Arial, sans-serif;
+        }
+
+        .sidebar-section a {
+            display: block;
+            color: #333;
+            text-decoration: none;
+            padding: 5px 0;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        .sidebar-section a:hover {
+            color: #E42527;
+        }
+
+        .sidebar-section a.active {
+            color: #E42527;
+            font-weight: bold;
+        }
+
+        .search-result {
+            background: white;
+            padding: 10px;
+            margin-bottom: 8px;
+            border-radius: 4px;
+            cursor: pointer;
+            border-left: 3px solid #E42527;
+            transition: all 0.2s;
+        }
+
+        .search-result:hover {
+            background: #fff5e6;
+            transform: translateX(3px);
+        }
+
+        .search-result-title {
+            font-weight: bold;
+            color: #333;
+            font-size: 14px;
+        }
+
+        .search-result-preview {
+            font-size: 12px;
+            color: #666;
+            margin-top: 4px;
+            line-height: 1.4;
+        }
+
+        .no-results {
+            padding: 10px;
+            color: #666;
+            font-size: 13px;
+            font-style: italic;
+        }
+
+        .search-highlight {
+            background: #ffeb3b;
+            padding: 2px 4px;
+            border-radius: 2px;
+            color: #333;
+        }
+
+        /* Right Content Area - Scrollable */
+        .content {
+            flex: 1;
+            overflow-y: auto;
+            background: white;
+            scroll-behavior: smooth;
+        }
+
+        .content-inner {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 60px 40px;
+        }
+
+        article {
+            margin-bottom: 60px;
+            scroll-margin-top: 60px;
+        }
+
+        article h2 {
+            font-size: 36px;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+
+        article p {
+            font-size: 18px;
+            line-height: 1.7;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .post-date {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #666;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #ddd;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-icons a {
+            width: 30px;
+            height: 30px;
+            background: #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 100%;
+                position: absolute;
+                z-index: 10;
+                transform: translateX(-100%);
+                transition: transform 0.3s;
+            }
+
+            .sidebar.active {
+                transform: translateX(0);
+            }
+        }
+</style>
