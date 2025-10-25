@@ -1,29 +1,3 @@
-<style>
-/* Font Face - Place your font file in the same folder as this HTML or in a 'fonts' subfolder */
-@font-face {
-    font-family: 'Zoho Puvi';
-    src: url('fonts/ZohoPuvi-Regular.otf') format('opentype');
-    font-weight: 400;
-    font-style: normal;
-    font-display: swap;
-}
-
-@font-face {
-    font-family: 'Zoho Puvi';
-    src: url('fonts/ZohoPuvi-Bold.otf') format('opentype');
-    font-weight: 700;
-    font-style: normal;
-    font-display: swap;
-}
-
-@font-face {
-    font-family: 'Zoho Puvi';
-    src: url('fonts/ZohoPuvi-Italic.otf') format('opentype');
-    font-weight: 400;
-    font-style: italic;
-    font-display: swap;
-}
-
 /* Base Reset */
 * {
     margin: 0;
@@ -32,9 +6,10 @@
 }
 
 body {
-    font-family: 'Zoho Puvi', 'Segoe UI', Arial, sans-serif;
+    font-family: 'Segoe UI', 'Arial', sans-serif;
     height: 100vh;
     overflow: hidden;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
 }
 
 .container {
@@ -42,13 +17,14 @@ body {
     height: 100vh;
 }
 
-/* Left Sidebar - Fixed */
+/* Sidebar Styles */
 .sidebar {
     width: 320px;
     background-color: #FAFAFA;
     border-right: 1px solid #ddd;
     overflow-y: auto;
     flex-shrink: 0;
+    z-index: 10;
 }
 
 .sidebar-header {
@@ -62,7 +38,6 @@ body {
 .novel-box {
     background: white;
     padding: 20px 30px;
-    border-radius: 0px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
@@ -86,8 +61,10 @@ body {
     font-size: 16px;
     font-weight: bold;
     margin-bottom: 15px;
+    color: #333;
 }
 
+/* Search Box */
 .search-box {
     display: flex;
     margin-bottom: 10px;
@@ -100,20 +77,29 @@ body {
     border-top-left-radius: 8px;
     border-bottom-left-radius: 8px;
     font-size: 14px;
-    font-family: 'Zoho Puvi', Arial, sans-serif;
+    outline: none;
+}
+
+.search-box input:focus {
+    border-color: #0086fa;
 }
 
 .search-box button {
     padding: 10px 20px;
-    background: #004f81d4;
+    background: #004f81;
     color: white;
     border: none;
     cursor: pointer;
-    font-family: 'Zoho Puvi', Arial, sans-serif;
     border-top-right-radius: 8px;
     border-bottom-right-radius: 8px;
+    transition: background 0.3s;
 }
 
+.search-box button:hover {
+    background: #003d66;
+}
+
+/* Email Box */
 .email-box {
     display: flex;
     margin-bottom: 10px;
@@ -124,7 +110,11 @@ body {
     padding: 10px;
     border: 1px solid #ccc;
     font-size: 14px;
-    font-family: 'Zoho Puvi', Arial, sans-serif;
+    outline: none;
+}
+
+.email-box input:focus {
+    border-color: #E42527;
 }
 
 .email-box button {
@@ -134,25 +124,39 @@ body {
     border: none;
     cursor: pointer;
     font-weight: bold;
-    font-family: 'Zoho Puvi', Arial, sans-serif;
+    transition: background 0.3s;
 }
 
+.email-box button:hover {
+    background: #c41e20;
+}
+
+/* Navigation Links */
 .sidebar-section a {
     display: block;
     color: #333;
     text-decoration: none;
-    padding: 5px 0;
+    padding: 8px 0;
     font-size: 14px;
     cursor: pointer;
+    transition: all 0.2s ease;
 }
 
 .sidebar-section a:hover {
-    color: #001d7dc2;
+    color: #0086fa;
+    padding-left: 5px;
 }
 
 .sidebar-section a.active {
     color: #0086fa;
     font-weight: bold;
+    padding-left: 5px;
+    border-left: 3px solid #0086fa;
+}
+
+/* Search Results */
+#searchResults {
+    margin-top: 15px;
 }
 
 .search-result {
@@ -176,13 +180,6 @@ body {
     font-size: 14px;
 }
 
-.search-result-preview {
-    font-size: 12px;
-    color: #666;
-    margin-top: 4px;
-    line-height: 1.4;
-}
-
 .no-results {
     padding: 10px;
     color: #666;
@@ -190,41 +187,47 @@ body {
     font-style: italic;
 }
 
-.search-highlight {
-    background: #ffeb3b;
-    padding: 2px 4px;
-    border-radius: 2px;
+/* Book Wrapper */
+.book-wrapper {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 100px 40px 100px;
+    position: relative;
+}
+
+/* Magazine/Flipbook Container */
+#magazine {
+    width: 922px;
+    height: 600px;
+    position: relative;
+}
+
+#magazine .turn-page {
+    background-color: white;
+    background-size: 100% 100%;
+}
+
+/* Page Content Wrapper */
+.page-content {
+    width: 100%;
+    height: 100%;
+    padding: 40px;
+    overflow: hidden;
+    background: white;
+}
+
+.page-content h2 {
+    font-size: 28px;
+    margin-bottom: 20px;
+    font-weight: bold;
     color: #333;
 }
 
-/* Right Content Area - Scrollable */
-.content {
-    flex: 1;
-    overflow-y: auto;
-    background: white;
-    scroll-behavior: smooth;
-}
-
-.content-inner {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 60px 40px;
-}
-
-article {
-    margin-bottom: 60px;
-    scroll-margin-top: 60px;
-}
-
-article h2 {
-    font-size: 36px;
-    margin-bottom: 20px;
-    font-weight: bold;
-}
-
-article p {
-    font-size: 18px;
-    line-height: 1.7;
+.page-content p {
+    font-size: 16px;
+    line-height: 1.8;
     color: #333;
     margin-bottom: 20px;
 }
@@ -239,35 +242,57 @@ article p {
     border-top: 1px solid #ddd;
 }
 
-.social-icons {
-    display: flex;
-    gap: 15px;
-    margin-top: 20px;
-}
-
-.social-icons a {
-    width: 30px;
-    height: 30px;
-    background: #000;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+/* Hard Cover Styles */
+.hard {
+    background: linear-gradient(135deg, #0086fa, #004f81) !important;
     color: white;
-    text-decoration: none;
-    font-size: 14px;
 }
 
-/* -------------------------------------------------- */
-/* FIXED FLOATING HEADER (NOW CORRECTLY PLACED) */
-/* -------------------------------------------------- */
+.cover-content {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 40px;
+}
 
+.cover-content h1 {
+    font-size: 48px;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+.cover-content p {
+    font-size: 20px;
+}
+
+.back-cover {
+    background: linear-gradient(135deg, #004f81, #0086fa) !important;
+}
+
+.back-cover h2 {
+    font-size: 32px;
+    margin-bottom: 20px;
+    color: white;
+}
+
+.back-cover p {
+    font-size: 16px;
+    color: white;
+}
+
+/* Floating Header */
 .floating-header {
     position: fixed;
     top: 20px;
-    left: 60%;
+    left: 50%;
     transform: translateX(-50%);
-    width: 72%;
-    background-color: #ffffff;
+    width: calc(100% - 400px);
+    max-width: 900px;
+    background: rgba(255, 255, 255, 0.95);
     border-radius: 8px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     display: flex;
@@ -275,19 +300,8 @@ article p {
     align-items: center;
     padding: 10px 24px;
     z-index: 1000;
-    font-family: 'Zoho Puvi', sans-serif;
-    font-weight: 500;
     height: 60px;
     backdrop-filter: blur(10px);
-    background: rgba(255, 255, 255, 0.7);
-
-}
-
-.header-left,
-.header-center,
-.header-right {
-    display: flex;
-    align-items: center;
 }
 
 .header-left {
@@ -302,69 +316,289 @@ article p {
 }
 
 .header-right img {
-    height: 100%;  /* Match the header height */
-    width: auto;   /* Maintain aspect ratio */
-    max-height: 41px;  /* Same as header height */
-    object-fit: contain;  /* Fit image within bounds */
+    height: 41px;
+    width: auto;
+    object-fit: contain;
     cursor: pointer;
     transition: transform 0.2s ease;
 }
+
 .header-right img:hover {
     transform: scale(1.05);
 }
 
-/* -------------------------------------------------- */
-/* RESPONSIVE SECTION */
-/* -------------------------------------------------- */
-@media (max-width: 768px) {
+/* Navigation Controls */
+.nav-controls {
+    position: fixed;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    z-index: 1000;
+}
+
+.nav-controls button {
+    padding: 12px 24px;
+    background: rgba(255, 255, 255, 0.95);
+    color: #333;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.nav-controls button:hover:not(:disabled) {
+    background: white;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+}
+
+.nav-controls button:active:not(:disabled) {
+    transform: translateY(0);
+}
+
+.nav-controls button:disabled {
+    background: rgba(200, 200, 200, 0.5);
+    cursor: not-allowed;
+    opacity: 0.5;
+}
+
+#page-number {
+    font-size: 14px;
+    font-weight: 600;
+    color: white;
+    background: rgba(0, 0, 0, 0.4);
+    padding: 8px 16px;
+    border-radius: 20px;
+    backdrop-filter: blur(10px);
+}
+
+/* Turn.js Page Shadow Effect */
+#magazine .turn-page-wrapper {
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+}
+
+/* Scrollbar Styling for Sidebar */
+.sidebar::-webkit-scrollbar {
+    width: 8px;
+}
+
+.sidebar::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 4px;
+}
+
+.sidebar::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
     .sidebar {
-        width: 100%;
-        position: absolute;
-        z-index: 10;
-        transform: translateX(-100%);
-        transition: transform 0.3s;
+        width: 280px;
     }
-
-    .sidebar.active {
-        transform: translateX(0);
+    
+    #magazine {
+        width: 760px;
+        height: 500px;
     }
+    
+    .floating-header {
+        width: calc(100% - 320px);
+    }
+    
+    .page-content {
+        padding: 30px;
+    }
+    
+    .page-content h2 {
+        font-size: 24px;
+    }
+    
+    .page-content p {
+        font-size: 14px;
+    }
+}
 
+@media (max-width: 992px) {
     .container {
         flex-direction: column;
     }
-
-    .content {
-        margin-left: 0;
-        padding: 20px;
+    
+    .sidebar {
+        width: 100%;
+        height: auto;
+        max-height: 30vh;
+        border-right: none;
+        border-bottom: 1px solid #ddd;
     }
     
-
-.floating-header {
-    position: fixed;
-    top: 20px;
-    left: 330px; /* aligns with your sidebar width */
-    right: 40px; /* pushes it almost to the right edge */
-    background-color: #ffffff;
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 24px;
-    z-index: 1000;
-    font-family: 'Zoho Puvi', sans-serif;
-    font-weight: 500;
-    height: 60px;
-}
-
-
+    .book-wrapper {
+        padding: 80px 20px 100px;
+    }
+    
+    #magazine {
+        width: 90vw;
+        height: calc(90vw / 1.5);
+        max-width: 700px;
+        max-height: 467px;
+    }
+    
+    .floating-header {
+        width: 90%;
+        top: 10px;
+        height: 50px;
+        padding: 8px 16px;
+    }
+    
     .header-left {
         font-size: 1rem;
     }
-
-    /* .header-right img {
+    
+    .header-center {
+        font-size: 0.85rem;
+    }
+    
+    .header-right img {
         height: 32px;
-        width: 32px;
-    } */
+    }
+    
+    .nav-controls {
+        bottom: 20px;
+        gap: 15px;
+    }
+    
+    .nav-controls button {
+        padding: 10px 18px;
+        font-size: 14px;
+    }
+    
+    #page-number {
+        font-size: 12px;
+        padding: 6px 12px;
+    }
 }
-</style>
+
+@media (max-width: 768px) {
+    .sidebar-content {
+        padding: 20px;
+    }
+    
+    .sidebar-section {
+        margin-bottom: 20px;
+    }
+    
+    .novel-box h1 {
+        font-size: 24px;
+    }
+    
+    .page-content {
+        padding: 20px;
+    }
+    
+    .page-content h2 {
+        font-size: 20px;
+        margin-bottom: 15px;
+    }
+    
+    .page-content p {
+        font-size: 13px;
+        line-height: 1.6;
+        margin-bottom: 15px;
+    }
+    
+    .cover-content h1 {
+        font-size: 32px;
+    }
+    
+    .cover-content p {
+        font-size: 16px;
+    }
+    
+    .back-cover h2 {
+        font-size: 24px;
+    }
+}
+
+@media (max-width: 576px) {
+    #magazine {
+        width: 95vw;
+        height: calc(95vw / 1.5);
+    }
+    
+    .floating-header {
+        flex-direction: column;
+        height: auto;
+        padding: 10px;
+        gap: 5px;
+    }
+    
+    .header-left, .header-center {
+        font-size: 0.9rem;
+    }
+    
+    .nav-controls {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .nav-controls button {
+        width: 120px;
+    }
+}
+
+/* Animation for page turning */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.page-content {
+    animation: fadeIn 0.3s ease-in;
+}
+
+/* Hover effect for interactive elements */
+.sidebar-section a,
+.search-result,
+.nav-controls button,
+.search-box button,
+.email-box button {
+    -webkit-tap-highlight-color: transparent;
+}
+
+/* Focus styles for accessibility */
+input:focus,
+button:focus {
+    outline: 2px solid #0086fa;
+    outline-offset: 2px;
+}
+
+/* Print styles */
+@media print {
+    .sidebar,
+    .floating-header,
+    .nav-controls {
+        display: none;
+    }
+    
+    .book-wrapper {
+        padding: 0;
+    }
+    
+    body {
+        background: white;
+    }
+}
